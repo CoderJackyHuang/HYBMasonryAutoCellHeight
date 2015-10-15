@@ -48,3 +48,8 @@ CSDN博客地址：http://blog.csdn.net/woaifen3344<br/>
 感谢UITableView-FDTemplateLayoutCell的作者sunnyxx给了我灵感，这才有现在的基于Masonry版本的自动计算行高的开源库。
 感谢所有使用本开源库的开发者，感谢你们的使用和反馈。
 
+##关注我
+![image](https://github.com/CoderJackyHuang/IOSCallJsOrJsCallIOS/blob/master/wx.jpg)
+
+##License
+MIT

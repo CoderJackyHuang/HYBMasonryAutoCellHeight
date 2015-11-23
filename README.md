@@ -40,7 +40,7 @@ A very helpful category for calculating the height of cell automatically.
 具体使用和具体API说明，请参考Demo！
 
 ##作者相关
-个人博客地址：http://www.hybblog.com/autocellheight-base-on-masonry/<br/>
+个人博客地址：http://henishuo.com/<br/>
 CSDN博客地址：http://blog.csdn.net/woaifen3344<br/>
 个人常用邮箱：huangyibiao520@163.com<br/>
 

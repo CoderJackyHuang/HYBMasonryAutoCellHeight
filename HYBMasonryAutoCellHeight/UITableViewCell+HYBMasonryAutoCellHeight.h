@@ -19,8 +19,8 @@ typedef void(^HYBCellBlock)(UITableViewCell *sourceCell);
  *
  *  @author huangyibiao
  *  @email  huangyibiao520@163.com
- *  @github https://github.com/632840804
- *  @blog   http://www.hybblog.com/
+ *  @github https://github.com/CoderJackyHuang
+ *  @blog   http://www.henishuo.com/
  *
  *  @note Make friends with me：
  *        QQ:(632840804)

@@ -40,9 +40,12 @@ A very helpful category for calculating the height of cell automatically.
 具体使用和具体API说明，请参考Demo！
 
 ##作者相关
-个人博客地址：http://www.hybblog.com/autocellheight-base-on-masonry/<br/>
 CSDN博客地址：http://blog.csdn.net/woaifen3344<br/>
 个人常用邮箱：huangyibiao520@163.com<br/>
+
+##博文讲解
+
+[Masonry自动计算行高](http://www.henishuo.com/masonry-cell-height-auto-calculate/)
 
 ##致谢
 感谢UITableView-FDTemplateLayoutCell的作者sunnyxx给了我灵感，这才有现在的基于Masonry版本的自动计算行高的开源库。

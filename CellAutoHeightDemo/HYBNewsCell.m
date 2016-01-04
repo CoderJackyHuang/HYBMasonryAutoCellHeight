@@ -29,15 +29,15 @@
     self.mainLabel = [[UILabel alloc] init];
     [self.contentView addSubview:self.mainLabel];
     self.mainLabel.numberOfLines = 0;
-    [self.mainLabel sizeToFit];
     [self.mainLabel mas_makeConstraints:^(MASConstraintMaker *make) {
       make.left.mas_equalTo(15);
       make.top.mas_equalTo(20);
       make.right.mas_equalTo(-15);
       make.height.mas_lessThanOrEqualTo(80);
     }];
+    CGFloat w = [UIScreen mainScreen].bounds.size.width;
     // 如果需要支持6.0，需要加上这句
-//    self.mainLabel.preferredMaxLayoutWidth = ...
+    self.mainLabel.preferredMaxLayoutWidth = w - 30;
     
     self.descLabel = [[UILabel alloc] init];
     [self.contentView addSubview:self.descLabel];
@@ -49,11 +49,10 @@
       make.top.mas_equalTo(self.mainLabel.mas_bottom).offset(15);
     }];
     // 如果需要支持6.0，需要加上这句
-    //    self.mainLabel.preferredMaxLayoutWidth = ...
+    self.descLabel.preferredMaxLayoutWidth = w - 30;
     
     self.button = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.contentView addSubview:self.button];
-    [self.button sizeToFit];
     [self.button setTitle:@"我是cell的最后一个" forState:UIControlStateNormal];
     [self.button setBackgroundColor:[UIColor greenColor]];
     [self.button mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -74,7 +73,6 @@
 - (void)configCellWithModel:(HYBNewsModel *)model {
   self.mainLabel.text = model.title;
   self.descLabel.text = model.desc;
-  
 }
 
 @end

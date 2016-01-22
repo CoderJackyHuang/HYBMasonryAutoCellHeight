@@ -8,6 +8,7 @@ A very helpful category for calculating the height of cell automatically.
 
 ##使用
 只需要在UITableView的代理方法中调用：
+
 ```
 /**
  * 通过此方法来计算行高，需要在config中调用配置数据的API
@@ -38,6 +39,11 @@ A very helpful category for calculating the height of cell automatically.
 ```
 
 具体使用和具体API说明，请参考Demo！
+
+#version 1.0.0
+
+* 增加缓存API
+
 
 ##作者相关
 

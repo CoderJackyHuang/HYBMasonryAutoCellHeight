@@ -86,12 +86,23 @@ FOUNDATION_EXTERN NSString *const kHYBCacheForTableViewKey;
  * 通过此方法来计算行高，需要在config中调用配置数据的API
  *
  * @param indexPath 必传，对应的indexPath
- * @param confi     必须要实现，且需要调用配置数据的API
+ * @param config     必须要实现，且需要调用配置数据的API
  *
  * @return 计算的行高
  */
 + (CGFloat)hyb_heightForIndexPath:(NSIndexPath *)indexPath config:(HYBCellBlock)config;
 
+/**
+ *	@author 黄仪标, 16-01-22 23:01:56
+ *
+ *	此API会缓存行高
+ *
+ *	@param indexPath 必传，对应的indexPath
+ *	@param config 必须要实现，且需要调用配置数据的API
+ *	@param cache  返回相关key
+ *
+ *	@return 行高
+ */
 + (CGFloat)hyb_heightForIndexPath:(NSIndexPath *)indexPath
                            config:(HYBCellBlock)config
                             cache:(HYBCacheHeight)cache;

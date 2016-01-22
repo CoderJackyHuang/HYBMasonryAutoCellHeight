@@ -18,6 +18,7 @@
 @property (nonatomic, strong) UILabel *mainLabel;
 @property (nonatomic, strong) UILabel *descLabel;
 @property (nonatomic, strong) UIButton *button;
+@property (nonatomic, assign) BOOL isExpandedNow;
 
 @end
 
@@ -50,6 +51,11 @@
     }];
     // 如果需要支持6.0，需要加上这句
     self.descLabel.preferredMaxLayoutWidth = w - 30;
+    self.descLabel.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(onTap)];
+    [self.descLabel addGestureRecognizer:tap];
     
     self.button = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.contentView addSubview:self.button];
@@ -65,14 +71,38 @@
     // 必须加上这句
     self.hyb_lastViewInCell = self.button;
     self.hyb_bottomOffsetToCell = 20;
+    self.isExpandedNow = YES;
   }
   
   return self;
 }
 
 - (void)configCellWithModel:(HYBNewsModel *)model {
+  NSLog(@"配置数据");
   self.mainLabel.text = model.title;
   self.descLabel.text = model.desc;
+  
+  if (model.isExpand != self.isExpandedNow) {
+    self.isExpandedNow = model.isExpand;
+
+    if (self.isExpandedNow) {
+      [self.descLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15);
+        make.right.mas_equalTo(-15);
+        make.top.mas_equalTo(self.mainLabel.mas_bottom).offset(15);
+      }];
+    } else {
+      [self.descLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_lessThanOrEqualTo(60);
+      }];
+    }
+  }
+}
+
+- (void)onTap {
+  if (self.expandBlock) {
+    self.expandBlock(!self.isExpandedNow);
+  }
 }
 
 @end

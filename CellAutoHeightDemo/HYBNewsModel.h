@@ -12,5 +12,7 @@
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *desc;
+@property (nonatomic, assign) int uid;
+@property (nonatomic, assign) BOOL isExpand;
 
 @end

@@ -51,6 +51,8 @@
       
       HYBNewsModel *model = [[HYBNewsModel alloc] init];
       model.title = [[self titleAll] substringToIndex:titleLength];
+      model.uid = (int)i + 1;
+      model.isExpand = YES;
       
       int descLength = rand() % descTotalLength + 20;
       if (descLength >= descTotalLength) {
@@ -84,6 +86,7 @@
   
   if (!cell) {
     cell = [[HYBNewsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
   }
   
   HYBNewsModel *model = nil;
@@ -91,6 +94,12 @@
     model = [self.dataSource objectAtIndex:indexPath.row];
   }
   [cell configCellWithModel:model];
+  
+  cell.expandBlock = ^(BOOL isExpand) {
+    model.isExpand = isExpand;
+    [tableView reloadRowsAtIndexPaths:@[indexPath]
+                     withRowAnimation:UITableViewRowAnimationFade];
+  };
   
   return cell;
 }
@@ -100,13 +109,34 @@
   if (indexPath.row < self.dataSource.count) {
     model = [self.dataSource objectAtIndex:indexPath.row];
   }
-
+  
+  NSString *stateKey = nil;
+  if (model.isExpand) {
+    stateKey = @"expanded";
+  } else {
+    stateKey = @"unexpanded";
+  }
+  
   return [HYBNewsCell hyb_heightForIndexPath:indexPath config:^(UITableViewCell *sourceCell) {
     HYBNewsCell *cell = (HYBNewsCell *)sourceCell;
-    
     // 配置数据
     [cell configCellWithModel:model];
+  } cache:^NSDictionary *{
+    return @{kHYBCacheUniqueKey: [NSString stringWithFormat:@"%d", model.uid],
+             kHYBCacheStateKey : stateKey,
+             kHYBCacheForTableViewKey : tableView,
+             // 如果设置为YES，若有缓存，则更新缓存，否则直接计算并缓存
+             // 主要是对社交这种有动态评论等不同状态，高度也会不同的情况的处理
+             kHYBRecalculateForStateKey : @(NO) // 标识不用重新更新
+             };
   }];
+//
+//  return [HYBNewsCell hyb_heightForIndexPath:indexPath config:^(UITableViewCell *sourceCell) {
+//    HYBNewsCell *cell = (HYBNewsCell *)sourceCell;
+//    
+//    // 配置数据
+//    [cell configCellWithModel:model];
+//  }];
 }
 
 @end

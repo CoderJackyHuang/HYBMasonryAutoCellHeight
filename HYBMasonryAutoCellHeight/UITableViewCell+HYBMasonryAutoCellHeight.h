@@ -7,12 +7,42 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MediaPlayer/MPMediaItem.h>
 
 /**
  * 获取高度前会回调，需要在此BLOCK中配置数据，才能正确地获取高度
  */
 typedef void(^HYBCellBlock)(UITableViewCell *sourceCell);
 
+typedef NSDictionary *(^HYBCacheHeight)();
+
+/**
+ *	@author 黄仪标, 16-01-22 21:01:09
+ *
+ *	唯一键，通常是数据模型的id，保证唯一
+ */
+FOUNDATION_EXTERN NSString *const kHYBCacheUniqueKey;
+
+/**
+ *	@author 黄仪标, 16-01-22 21:01:57
+ *
+ *	对于同一个model，如果有不同状态，而且不同状态下高度不一样，那么也需要指定
+ */
+FOUNDATION_EXTERN NSString *const kHYBCacheStateKey;
+
+/**
+ *	@author 黄仪标, 16-01-22 21:01:47
+ *
+ *	用于指定更新某种状态的缓存，比如当评论时，增加了一条评论，此时该状态的高度若已经缓存过，则需要指定来更新缓存
+ */
+FOUNDATION_EXTERN NSString *const kHYBRecalculateForStateKey;
+
+/**
+ *	@author 黄仪标, 16-01-22 21:01:55
+ *
+ *	指定为缓存tableview缓存 
+ */
+FOUNDATION_EXTERN NSString *const kHYBCacheForTableViewKey;
 
 /**
  *  基于Masonry自动布局实现的自动计算cell的行高扩展
@@ -20,7 +50,7 @@ typedef void(^HYBCellBlock)(UITableViewCell *sourceCell);
  *  @author huangyibiao
  *  @email  huangyibiao520@163.com
  *  @github https://github.com/CoderJackyHuang
- *  @blog   http://www.henishuo.com/
+ *  @blog   http://www.henishuo.com/masonry-cell-height-auto-calculate/
  *
  *  @note Make friends with me：
  *        QQ:(632840804)
@@ -61,5 +91,9 @@ typedef void(^HYBCellBlock)(UITableViewCell *sourceCell);
  * @return 计算的行高
  */
 + (CGFloat)hyb_heightForIndexPath:(NSIndexPath *)indexPath config:(HYBCellBlock)config;
+
++ (CGFloat)hyb_heightForIndexPath:(NSIndexPath *)indexPath
+                           config:(HYBCellBlock)config
+                            cache:(HYBCacheHeight)cache;
 
 @end

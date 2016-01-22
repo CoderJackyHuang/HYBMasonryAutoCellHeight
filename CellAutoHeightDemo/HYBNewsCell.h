@@ -10,7 +10,11 @@
 
 @class HYBNewsModel;
 
+typedef void(^HYBExpandBlock)(BOOL isExpand);
+
 @interface HYBNewsCell : UITableViewCell
+
+@property (nonatomic, copy) HYBExpandBlock expandBlock;
 
 - (void)configCellWithModel:(HYBNewsModel *)model;
 

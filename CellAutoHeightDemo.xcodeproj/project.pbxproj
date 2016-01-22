@@ -17,6 +17,8 @@
 		690C273E1B958E08004CA276 /* UITableViewCell+HYBMasonryAutoCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 690C273D1B958E08004CA276 /* UITableViewCell+HYBMasonryAutoCellHeight.m */; };
 		690C27421B958F1A004CA276 /* HYBNewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 690C27411B958F1A004CA276 /* HYBNewsCell.m */; };
 		690C27451B958F30004CA276 /* HYBNewsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 690C27441B958F30004CA276 /* HYBNewsModel.m */; };
+		696C9F2A1C525C5900736675 /* UITableView+HYBCacheHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 696C9F291C525C5900736675 /* UITableView+HYBCacheHeight.m */; };
+		696C9F2B1C525C5900736675 /* UITableView+HYBCacheHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 696C9F291C525C5900736675 /* UITableView+HYBCacheHeight.m */; };
 		C73941CDAE81ED78AABF8961 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F75BB92AE919D3048594F1C0 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +53,8 @@
 		690C27411B958F1A004CA276 /* HYBNewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYBNewsCell.m; sourceTree = "<group>"; };
 		690C27431B958F30004CA276 /* HYBNewsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYBNewsModel.h; sourceTree = "<group>"; };
 		690C27441B958F30004CA276 /* HYBNewsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYBNewsModel.m; sourceTree = "<group>"; };
+		696C9F281C525C5900736675 /* UITableView+HYBCacheHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+HYBCacheHeight.h"; sourceTree = "<group>"; };
+		696C9F291C525C5900736675 /* UITableView+HYBCacheHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+HYBCacheHeight.m"; sourceTree = "<group>"; };
 		B5E4DB4FDEF9F77AE80F96D7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		F75BB92AE919D3048594F1C0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -146,6 +150,8 @@
 			children = (
 				690C273C1B958E08004CA276 /* UITableViewCell+HYBMasonryAutoCellHeight.h */,
 				690C273D1B958E08004CA276 /* UITableViewCell+HYBMasonryAutoCellHeight.m */,
+				696C9F281C525C5900736675 /* UITableView+HYBCacheHeight.h */,
+				696C9F291C525C5900736675 /* UITableView+HYBCacheHeight.m */,
 			);
 			path = HYBMasonryAutoCellHeight;
 			sourceTree = "<group>";
@@ -299,6 +305,7 @@
 				690C273E1B958E08004CA276 /* UITableViewCell+HYBMasonryAutoCellHeight.m in Sources */,
 				690C27451B958F30004CA276 /* HYBNewsModel.m in Sources */,
 				690C27421B958F1A004CA276 /* HYBNewsCell.m in Sources */,
+				696C9F2A1C525C5900736675 /* UITableView+HYBCacheHeight.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +314,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				690C272D1B957CA0004CA276 /* CellAutoHeightDemoTests.m in Sources */,
+				696C9F2B1C525C5900736675 /* UITableView+HYBCacheHeight.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

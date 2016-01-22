@@ -8,6 +8,12 @@
 
 #import "UITableViewCell+HYBMasonryAutoCellHeight.h"
 #import <objc/runtime.h>
+#import "UITableView+HYBCacheHeight.h"
+
+NSString *const kHYBCacheUniqueKey = @"kHYBCacheUniqueKey";
+NSString *const kHYBCacheStateKey = @"kHYBCacheStateKey";
+NSString *const kHYBRecalculateForStateKey = @"kHYBRecalculateForStateKey";
+NSString *const kHYBCacheForTableViewKey = @"kHYBCacheForTableViewKey";
 
 const void *s_hyb_lastViewInCellKey = "hyb_lastViewInCellKey";
 const void *s_hyb_bottomOffsetToCellKey = "hyb_bottomOffsetToCellKey";
@@ -22,8 +28,47 @@ const void *s_hyb_bottomOffsetToCellKey = "hyb_bottomOffsetToCellKey";
   if (config) {
     config(cell);
   }
-
+  
   return [cell private_hyb_heightForIndexPath:indexPath];
+}
+
++ (CGFloat)hyb_heightForIndexPath:(NSIndexPath *)indexPath
+                           config:(HYBCellBlock)config
+                            cache:(HYBCacheHeight)cache {
+  if (cache) {
+    NSDictionary *cacheKeys = cache();
+    UITableView *tableView = cacheKeys[kHYBCacheForTableViewKey];
+    
+    NSString *key = cacheKeys[kHYBCacheUniqueKey];
+    NSString *stateKey = cacheKeys[kHYBCacheStateKey];
+    NSString *shouldUpdate = cacheKeys[kHYBRecalculateForStateKey];
+    
+    NSMutableDictionary *stateDict = tableView.hyb_cacheCellHeightDict[key];
+    NSString *cacheHeight = stateDict[stateKey];
+ 
+    if (tableView == nil
+        || tableView.hyb_cacheCellHeightDict.count == 0
+        || shouldUpdate.boolValue
+        || cacheHeight == nil) {
+      CGFloat height = [self hyb_heightForIndexPath:indexPath config:config];
+      
+      if (stateDict == nil) {
+        stateDict = [[NSMutableDictionary alloc] init];
+        tableView.hyb_cacheCellHeightDict[key] = stateDict;
+      }
+      
+      [stateDict setObject:[NSString stringWithFormat:@"%lf", height] forKey:stateKey];
+      
+      return height;
+    } else if (tableView.hyb_cacheCellHeightDict.count != 0
+               && cacheHeight != nil
+               && cacheHeight.integerValue != 0) {
+      NSLog(@"read from cache");
+      return cacheHeight.floatValue;
+    }
+  }
+  
+  return [self hyb_heightForIndexPath:indexPath config:config];
 }
 
 - (void)setHyb_lastViewInCell:(UIView *)hyb_lastViewInCell {

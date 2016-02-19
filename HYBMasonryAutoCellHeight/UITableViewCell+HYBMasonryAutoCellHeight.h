@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MediaPlayer/MPMediaItem.h>
 
 /**
  * 获取高度前会回调，需要在此BLOCK中配置数据，才能正确地获取高度

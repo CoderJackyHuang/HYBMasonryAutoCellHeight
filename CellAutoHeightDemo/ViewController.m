@@ -130,13 +130,6 @@
              kHYBRecalculateForStateKey : @(NO) // 标识不用重新更新
              };
   }];
-//
-//  return [HYBNewsCell hyb_heightForIndexPath:indexPath config:^(UITableViewCell *sourceCell) {
-//    HYBNewsCell *cell = (HYBNewsCell *)sourceCell;
-//    
-//    // 配置数据
-//    [cell configCellWithModel:model];
-//  }];
 }
 
 @end

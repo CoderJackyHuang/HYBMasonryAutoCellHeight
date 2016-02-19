@@ -37,7 +37,8 @@
       make.height.mas_lessThanOrEqualTo(80);
     }];
     CGFloat w = [UIScreen mainScreen].bounds.size.width;
-    // 如果需要支持6.0，需要加上这句
+    // 应该始终要加上这一句
+    // 不然在6/6plus上就不准确了
     self.mainLabel.preferredMaxLayoutWidth = w - 30;
     
     self.descLabel = [[UILabel alloc] init];
@@ -49,7 +50,8 @@
       make.right.mas_equalTo(-15);
       make.top.mas_equalTo(self.mainLabel.mas_bottom).offset(15);
     }];
-    // 如果需要支持6.0，需要加上这句
+    // 应该始终要加上这一句
+    // 不然在6/6plus上就不准确了
     self.descLabel.preferredMaxLayoutWidth = w - 30;
     self.descLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
@@ -84,7 +86,7 @@
   
   if (model.isExpand != self.isExpandedNow) {
     self.isExpandedNow = model.isExpand;
-
+    
     if (self.isExpandedNow) {
       [self.descLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);

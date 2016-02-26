@@ -63,7 +63,6 @@ const void *s_hyb_bottomOffsetToCellKey = "hyb_bottomOffsetToCellKey";
     } else if (tableView.hyb_cacheCellHeightDict.count != 0
                && cacheHeight != nil
                && cacheHeight.integerValue != 0) {
-      NSLog(@"read from cache");
       return cacheHeight.floatValue;
     }
   }

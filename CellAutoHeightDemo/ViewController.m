@@ -85,7 +85,9 @@
   HYBNewsCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
   
   if (!cell) {
-    cell = [[HYBNewsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+      cell = [[HYBNewsCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                reuseIdentifier:cellIdentifier];
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
   }
   
@@ -117,14 +119,13 @@
     stateKey = @"unexpanded";
   }
   
-  return [HYBNewsCell hyb_heightForIndexPath:indexPath config:^(UITableViewCell *sourceCell) {
+  return [HYBNewsCell hyb_heightForTableView:tableView config:^(UITableViewCell *sourceCell) {
     HYBNewsCell *cell = (HYBNewsCell *)sourceCell;
     // 配置数据
     [cell configCellWithModel:model];
   } cache:^NSDictionary *{
     return @{kHYBCacheUniqueKey: [NSString stringWithFormat:@"%d", model.uid],
              kHYBCacheStateKey : stateKey,
-             kHYBCacheForTableViewKey : tableView,
              // 如果设置为YES，若有缓存，则更新缓存，否则直接计算并缓存
              // 主要是对社交这种有动态评论等不同状态，高度也会不同的情况的处理
              kHYBRecalculateForStateKey : @(NO) // 标识不用重新更新

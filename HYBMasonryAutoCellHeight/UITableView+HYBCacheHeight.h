@@ -29,4 +29,11 @@
  */
 @property (nonatomic, strong, readonly) NSMutableDictionary *hyb_cacheCellHeightDict;
 
+/**
+ *	@author 黄仪标, 16-03-01 21:03:19
+ *
+ *	用于获取或者添加计算行高的cell，因为理论上只有一个cell用来计算行高，以降低消耗
+ */
+@property (nonatomic, strong, readonly) NSMutableDictionary *hyb_reuseCells;
+
 @end

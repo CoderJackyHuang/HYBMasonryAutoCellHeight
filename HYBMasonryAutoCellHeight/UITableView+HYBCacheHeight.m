@@ -10,6 +10,7 @@
 #import <objc/runtime.h>
 
 static const void *__hyb_tableview_cacheCellHeightKey = "__hyb_tableview_cacheCellHeightKey";
+static const void *__hyb_tableview_reuse_cells_key = "__hyb_tableview_reuse_cells_key";
 
 @implementation UITableView (HYBCacheHeight)
 
@@ -18,6 +19,7 @@ static const void *__hyb_tableview_cacheCellHeightKey = "__hyb_tableview_cacheCe
   
   if (dict == nil) {
     dict = [[NSMutableDictionary alloc] init];
+    
     objc_setAssociatedObject(self,
                              __hyb_tableview_cacheCellHeightKey,
                              dict,
@@ -25,6 +27,21 @@ static const void *__hyb_tableview_cacheCellHeightKey = "__hyb_tableview_cacheCe
   }
   
   return dict;
+}
+
+- (NSMutableDictionary *)hyb_reuseCells {
+  NSMutableDictionary *cells = objc_getAssociatedObject(self, __hyb_tableview_reuse_cells_key);
+  
+  if (cells == nil) {
+    cells = [[NSMutableDictionary alloc] init];
+    
+    objc_setAssociatedObject(self,
+                             __hyb_tableview_reuse_cells_key,
+                             cells,
+                             OBJC_ASSOCIATION_RETAIN);
+  }
+  
+  return cells;
 }
 
 @end

@@ -21,24 +21,27 @@ const void *s_hyb_bottomOffsetToCellKey = "hyb_bottomOffsetToCellKey";
 @implementation UITableViewCell (HYBMasonryAutoCellHeight)
 
 #pragma mark - Public
-+ (CGFloat)hyb_heightForIndexPath:(NSIndexPath *)indexPath config:(HYBCellBlock)config {
-  UITableViewCell *cell = [[self alloc] initWithStyle:UITableViewCellStyleDefault
-                                      reuseIdentifier:nil];
++ (CGFloat)hyb_heightForTableView:(UITableView *)tableView config:(HYBCellBlock)config {
+  UITableViewCell *cell = [tableView.hyb_reuseCells objectForKey:[[self class] description]];
+  
+  if (cell == nil) {
+    cell = [[self alloc] initWithStyle:UITableViewCellStyleDefault
+                       reuseIdentifier:nil];
+    [tableView.hyb_reuseCells setObject:cell forKey:[[self class] description]];
+  }
   
   if (config) {
     config(cell);
   }
   
-  return [cell private_hyb_heightForIndexPath:indexPath];
+  return [cell private_hyb_heightForTableView:tableView];
 }
 
-+ (CGFloat)hyb_heightForIndexPath:(NSIndexPath *)indexPath
++ (CGFloat)hyb_heightForTableView:(UITableView *)tableView
                            config:(HYBCellBlock)config
                             cache:(HYBCacheHeight)cache {
   if (cache) {
     NSDictionary *cacheKeys = cache();
-    UITableView *tableView = cacheKeys[kHYBCacheForTableViewKey];
-    
     NSString *key = cacheKeys[kHYBCacheUniqueKey];
     NSString *stateKey = cacheKeys[kHYBCacheStateKey];
     NSString *shouldUpdate = cacheKeys[kHYBRecalculateForStateKey];
@@ -50,7 +53,7 @@ const void *s_hyb_bottomOffsetToCellKey = "hyb_bottomOffsetToCellKey";
         || tableView.hyb_cacheCellHeightDict.count == 0
         || shouldUpdate.boolValue
         || cacheHeight == nil) {
-      CGFloat height = [self hyb_heightForIndexPath:indexPath config:config];
+      CGFloat height = [self hyb_heightForTableView:tableView config:config];
       
       if (stateDict == nil) {
         stateDict = [[NSMutableDictionary alloc] init];
@@ -67,7 +70,7 @@ const void *s_hyb_bottomOffsetToCellKey = "hyb_bottomOffsetToCellKey";
     }
   }
   
-  return [self hyb_heightForIndexPath:indexPath config:config];
+  return [self hyb_heightForTableView:tableView config:config];
 }
 
 - (void)setHyb_lastViewInCell:(UIView *)hyb_lastViewInCell {
@@ -90,6 +93,7 @@ const void *s_hyb_bottomOffsetToCellKey = "hyb_bottomOffsetToCellKey";
 
 - (CGFloat)hyb_bottomOffsetToCell {
   NSNumber *valueObject = objc_getAssociatedObject(self, s_hyb_bottomOffsetToCellKey);
+  
   if ([valueObject respondsToSelector:@selector(floatValue)]) {
     return valueObject.floatValue;
   }
@@ -98,7 +102,7 @@ const void *s_hyb_bottomOffsetToCellKey = "hyb_bottomOffsetToCellKey";
 }
 
 #pragma mark - Private
-- (CGFloat)private_hyb_heightForIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)private_hyb_heightForTableView:(UITableView *)tableView {
   NSAssert(self.hyb_lastViewInCell != nil, @"您未指定cell排列中最后一个视图对象，无法计算cell的高度");
   
   [self layoutIfNeeded];

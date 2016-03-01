@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UITableView+HYBCacheHeight.h"
 
 /**
  * 获取高度前会回调，需要在此BLOCK中配置数据，才能正确地获取高度
@@ -35,13 +36,6 @@ FOUNDATION_EXTERN NSString *const kHYBCacheStateKey;
  *	用于指定更新某种状态的缓存，比如当评论时，增加了一条评论，此时该状态的高度若已经缓存过，则需要指定来更新缓存
  */
 FOUNDATION_EXTERN NSString *const kHYBRecalculateForStateKey;
-
-/**
- *	@author 黄仪标, 16-01-22 21:01:55
- *
- *	指定为缓存tableview缓存 
- */
-FOUNDATION_EXTERN NSString *const kHYBCacheForTableViewKey;
 
 /**
  *  基于Masonry自动布局实现的自动计算cell的行高扩展
@@ -84,25 +78,25 @@ FOUNDATION_EXTERN NSString *const kHYBCacheForTableViewKey;
 /**
  * 通过此方法来计算行高，需要在config中调用配置数据的API
  *
- * @param indexPath 必传，对应的indexPath
+ * @param tableView 必传，为哪个tableView缓存行高
  * @param config     必须要实现，且需要调用配置数据的API
  *
  * @return 计算的行高
  */
-+ (CGFloat)hyb_heightForIndexPath:(NSIndexPath *)indexPath config:(HYBCellBlock)config;
++ (CGFloat)hyb_heightForTableView:(UITableView *)tableView config:(HYBCellBlock)config;
 
 /**
  *	@author 黄仪标, 16-01-22 23:01:56
  *
  *	此API会缓存行高
  *
- *	@param indexPath 必传，对应的indexPath
+ *	@param tableView 必传，为哪个tableView缓存行高
  *	@param config 必须要实现，且需要调用配置数据的API
  *	@param cache  返回相关key
  *
  *	@return 行高
  */
-+ (CGFloat)hyb_heightForIndexPath:(NSIndexPath *)indexPath
++ (CGFloat)hyb_heightForTableView:(UITableView *)tableView
                            config:(HYBCellBlock)config
                             cache:(HYBCacheHeight)cache;
 

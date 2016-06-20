@@ -40,20 +40,23 @@ A very helpful category for calculating the height of cell automatically.
 
 具体使用和具体API说明，请参考Demo！
 
-#version 1.0.0
+#Versions
 
-* 增加缓存API
+* 1.0.0
+  -* 增加缓存API
+* 2.0.1
+  -* 增加hyb_lastViewsInCell，当不确定哪个是最后一个时，可以使用此数组属性
 
 
 ##作者相关
 
-个人博客地址：http://henishuo.com/<br/>
+个人博客地址：http://101.200.209.244.com/<br/>
 CSDN博客地址：http://blog.csdn.net/woaifen3344<br/>
 个人常用邮箱：huangyibiao520@163.com<br/>
 
 ##博文讲解
 
-[Masonry自动计算行高](http://www.henishuo.com/masonry-cell-height-auto-calculate/)
+[Masonry自动计算行高](http://101.200.209.244/masonry-cell-height-auto-calculate/)
 
 ##致谢
 感谢UITableView-FDTemplateLayoutCell的作者sunnyxx给了我灵感，这才有现在的基于Masonry版本的自动计算行高的开源库。

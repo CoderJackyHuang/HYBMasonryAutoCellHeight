@@ -85,7 +85,10 @@ const void *s_hyb_bottomOffsetToCellKey = "hyb_bottomOffsetToCellKey";
 }
 
 - (void)setHyb_lastViewsInCell:(NSArray *)hyb_lastViewsInCell {
-  objc_setAssociatedObject(self, @selector(hyb_lastViewsInCell), hyb_lastViewsInCell, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+  objc_setAssociatedObject(self,
+                           @selector(hyb_lastViewsInCell),
+                           hyb_lastViewsInCell,
+                           OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSArray *)hyb_lastViewsInCell {
@@ -111,7 +114,9 @@ const void *s_hyb_bottomOffsetToCellKey = "hyb_bottomOffsetToCellKey";
 
 #pragma mark - Private
 - (CGFloat)private_hyb_heightForTableView:(UITableView *)tableView {
-  NSAssert(self.hyb_lastViewInCell != nil || self.hyb_lastViewsInCell.count != 0, @"您未指定cell排列中最后的视图对象，无法计算cell的高度");
+  NSAssert(self.hyb_lastViewInCell != nil
+           || self.hyb_lastViewsInCell.count != 0,
+           @"您未指定cell排列中最后的视图对象，无法计算cell的高度");
   
   [self layoutIfNeeded];
   
@@ -126,6 +131,7 @@ const void *s_hyb_bottomOffsetToCellKey = "hyb_bottomOffsetToCellKey";
       }
     }
   }
+  
   rowHeight += self.hyb_bottomOffsetToCell;
   
   return rowHeight;

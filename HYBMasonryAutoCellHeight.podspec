@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "HYBMasonryAutoCellHeight"
-  s.version      = "2.0.0"
+  s.version      = "2.0.1"
   s.summary      = "基于Masonry的自动计算cell的行高的扩展库，且高效缓存行高"
 
 
@@ -71,7 +71,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/CoderJackyHuang/HYBMasonryAutoCellHeight.git", :tag => "2.0.0" }
+  s.source       = { :git => "https://github.com/CoderJackyHuang/HYBMasonryAutoCellHeight.git", :tag => "2.0.1" }
 
 
 

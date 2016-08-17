@@ -116,23 +116,29 @@ const void *s_hyb_bottomOffsetToCellKey = "hyb_bottomOffsetToCellKey";
 
 #pragma mark - Private
 - (CGFloat)private_hyb_heightForTableView:(UITableView *)tableView {
-    NSAssert(self.hyb_lastViewInCell != nil
-             || self.hyb_lastViewsInCell.count != 0,
-             @"您未指定cell排列中最后的视图对象，无法计算cell的高度");
+//    NSAssert(self.hyb_lastViewInCell != nil
+//             || self.hyb_lastViewsInCell.count != 0,
+//             @"您未指定cell排列中最后的视图对象，无法计算cell的高度");
     
     [self layoutIfNeeded];
     
     CGFloat rowHeight = 0.0;
     
-    if (self.hyb_lastViewInCell) {
-        rowHeight = self.hyb_lastViewInCell.frame.size.height + self.hyb_lastViewInCell.frame.origin.y;
-    } else {
-        for (UIView *view in self.hyb_lastViewsInCell) {
-            if (rowHeight < CGRectGetMaxY(view.frame)) {
-                rowHeight = CGRectGetMaxY(view.frame);
-            }
+    for (UIView *bottomView in self.contentView.subviews) {
+        if (rowHeight < CGRectGetMaxY(bottomView.frame)) {
+            rowHeight = CGRectGetMaxY(bottomView.frame);
         }
     }
+    
+//    if (self.hyb_lastViewInCell) {
+//        rowHeight = self.hyb_lastViewInCell.frame.size.height + self.hyb_lastViewInCell.frame.origin.y;
+//    } else {
+//        for (UIView *view in self.hyb_lastViewsInCell) {
+//            if (rowHeight < CGRectGetMaxY(view.frame)) {
+//                rowHeight = CGRectGetMaxY(view.frame);
+//            }
+//        }
+//    }
     
     rowHeight += self.hyb_bottomOffsetToCell;
     

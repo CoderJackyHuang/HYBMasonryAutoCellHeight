@@ -65,12 +65,12 @@ FOUNDATION_EXTERN NSString *const kHYBRecalculateForStateKey;
  * 必传设置的属性，也就是在cell中的contentView内最后一个视图，用于计算行高
  * 例如，创建了一个按钮button作为在cell中放到最后一个位置，则设置为：self.hyb_lastVieInCell = button;
  * 即可。
- * 默认为nil，如果在计算时，值为nil，会crash
+ * 默认为nil，如果在计算时，值为nil，会crash (弃用)
  */
 @property (nonatomic, strong) UIView *hyb_lastViewInCell;
 
 /**
- *  当距离分割线的视图不确定时，可以将可能的所有视图放在这个数组里面，优先级低于上面的属性，也就是当`hyb_lastViewInCell`有值时，`hyb_lastViewsInCell`不起作用。
+ *  当距离分割线的视图不确定时，可以将可能的所有视图放在这个数组里面，优先级低于上面的属性，也就是当`hyb_lastViewInCell`有值时，`hyb_lastViewsInCell`不起作用。(弃用)
  */
 @property (nonatomic, strong) NSArray *hyb_lastViewsInCell;
 

@@ -72,7 +72,7 @@
     
     // 必须加上这句
 //    self.hyb_lastViewInCell = self.button;
-    self.hyb_lastViewsInCell = @[self.button];
+//    self.hyb_lastViewsInCell = @[self.button];
     
     self.hyb_bottomOffsetToCell = 20;
     self.isExpandedNow = YES;

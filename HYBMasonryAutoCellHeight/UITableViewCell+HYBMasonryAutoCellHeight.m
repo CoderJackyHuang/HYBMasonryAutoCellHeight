@@ -22,119 +22,121 @@ const void *s_hyb_bottomOffsetToCellKey = "hyb_bottomOffsetToCellKey";
 
 #pragma mark - Public
 + (CGFloat)hyb_heightForTableView:(UITableView *)tableView config:(HYBCellBlock)config {
-  UITableViewCell *cell = [tableView.hyb_reuseCells objectForKey:[[self class] description]];
-  
-  if (cell == nil) {
-    cell = [[self alloc] initWithStyle:UITableViewCellStyleDefault
-                       reuseIdentifier:nil];
-    [tableView.hyb_reuseCells setObject:cell forKey:[[self class] description]];
-  }
-  
-  if (config) {
-    config(cell);
-  }
-  
-  return [cell private_hyb_heightForTableView:tableView];
+    UITableViewCell *cell = [tableView.hyb_reuseCells objectForKey:[[self class] description]];
+    
+    if (cell == nil) {
+        cell = [[self alloc] initWithStyle:UITableViewCellStyleDefault
+                           reuseIdentifier:nil];
+        [tableView.hyb_reuseCells setObject:cell forKey:[[self class] description]];
+    }
+    
+    if (config) {
+        config(cell);
+    }
+    
+    return [cell private_hyb_heightForTableView:tableView];
 }
 
 + (CGFloat)hyb_heightForTableView:(UITableView *)tableView
                            config:(HYBCellBlock)config
                             cache:(HYBCacheHeight)cache {
-  if (cache) {
-    NSDictionary *cacheKeys = cache();
-    NSString *key = cacheKeys[kHYBCacheUniqueKey];
-    NSString *stateKey = cacheKeys[kHYBCacheStateKey];
-    NSString *shouldUpdate = cacheKeys[kHYBRecalculateForStateKey];
     
-    NSMutableDictionary *stateDict = tableView.hyb_cacheCellHeightDict[key];
-    NSString *cacheHeight = stateDict[stateKey];
- 
-    if (tableView == nil
-        || tableView.hyb_cacheCellHeightDict.count == 0
-        || shouldUpdate.boolValue
-        || cacheHeight == nil) {
-      CGFloat height = [self hyb_heightForTableView:tableView config:config];
-      
-      if (stateDict == nil) {
-        stateDict = [[NSMutableDictionary alloc] init];
-        tableView.hyb_cacheCellHeightDict[key] = stateDict;
-      }
-      
-      [stateDict setObject:[NSString stringWithFormat:@"%lf", height] forKey:stateKey];
-      
-      return height;
-    } else if (tableView.hyb_cacheCellHeightDict.count != 0
-               && cacheHeight != nil
-               && cacheHeight.integerValue != 0) {
-      return cacheHeight.floatValue;
+    NSAssert(tableView, @"tableView is necessary param");
+    
+    if (cache) {
+        NSDictionary *cacheKeys = cache();
+        NSString *key = cacheKeys[kHYBCacheUniqueKey];
+        NSString *stateKey = cacheKeys[kHYBCacheStateKey];
+        NSString *shouldUpdate = cacheKeys[kHYBRecalculateForStateKey];
+        
+        NSMutableDictionary *stateDict = tableView.hyb_cacheCellHeightDict[key];
+        NSString *cacheHeight = stateDict[stateKey];
+        
+        if (tableView.hyb_cacheCellHeightDict.count == 0
+            || shouldUpdate.boolValue
+            || cacheHeight == nil) {
+            CGFloat height = [self hyb_heightForTableView:tableView config:config];
+            
+            if (stateDict == nil) {
+                stateDict = [[NSMutableDictionary alloc] init];
+                tableView.hyb_cacheCellHeightDict[key] = stateDict;
+            }
+            
+            [stateDict setObject:[NSString stringWithFormat:@"%lf", height] forKey:stateKey];
+            
+            return height;
+        } else if (tableView.hyb_cacheCellHeightDict.count != 0
+                   && cacheHeight != nil
+                   && cacheHeight.integerValue != 0) {
+            return cacheHeight.floatValue;
+        }
     }
-  }
-  
-  return [self hyb_heightForTableView:tableView config:config];
+    
+    return [self hyb_heightForTableView:tableView config:config];
 }
 
 - (void)setHyb_lastViewInCell:(UIView *)hyb_lastViewInCell {
-  objc_setAssociatedObject(self,
-                           s_hyb_lastViewInCellKey,
-                           hyb_lastViewInCell,
-                           OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self,
+                             s_hyb_lastViewInCellKey,
+                             hyb_lastViewInCell,
+                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (UIView *)hyb_lastViewInCell {
-  return objc_getAssociatedObject(self, s_hyb_lastViewInCellKey);
+    return objc_getAssociatedObject(self, s_hyb_lastViewInCellKey);
 }
 
 - (void)setHyb_lastViewsInCell:(NSArray *)hyb_lastViewsInCell {
-  objc_setAssociatedObject(self,
-                           @selector(hyb_lastViewsInCell),
-                           hyb_lastViewsInCell,
-                           OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self,
+                             @selector(hyb_lastViewsInCell),
+                             hyb_lastViewsInCell,
+                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (NSArray *)hyb_lastViewsInCell {
-  return objc_getAssociatedObject(self, _cmd);
+    return objc_getAssociatedObject(self, _cmd);
 }
 
 - (void)setHyb_bottomOffsetToCell:(CGFloat)hyb_bottomOffsetToCell {
-  objc_setAssociatedObject(self,
-                           s_hyb_bottomOffsetToCellKey,
-                           @(hyb_bottomOffsetToCell),
-                           OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self,
+                             s_hyb_bottomOffsetToCellKey,
+                             @(hyb_bottomOffsetToCell),
+                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (CGFloat)hyb_bottomOffsetToCell {
-  NSNumber *valueObject = objc_getAssociatedObject(self, s_hyb_bottomOffsetToCellKey);
-  
-  if ([valueObject respondsToSelector:@selector(floatValue)]) {
-    return valueObject.floatValue;
-  }
-  
-  return 0.0;
+    NSNumber *valueObject = objc_getAssociatedObject(self, s_hyb_bottomOffsetToCellKey);
+    
+    if ([valueObject respondsToSelector:@selector(floatValue)]) {
+        return valueObject.floatValue;
+    }
+    
+    return 0.0;
 }
 
 #pragma mark - Private
 - (CGFloat)private_hyb_heightForTableView:(UITableView *)tableView {
-  NSAssert(self.hyb_lastViewInCell != nil
-           || self.hyb_lastViewsInCell.count != 0,
-           @"您未指定cell排列中最后的视图对象，无法计算cell的高度");
-  
-  [self layoutIfNeeded];
-  
-  CGFloat rowHeight = 0.0;
-  
-  if (self.hyb_lastViewInCell) {
-    rowHeight = self.hyb_lastViewInCell.frame.size.height + self.hyb_lastViewInCell.frame.origin.y;
-  } else {
-    for (UIView *view in self.hyb_lastViewsInCell) {
-      if (rowHeight < CGRectGetMaxY(view.frame)) {
-        rowHeight = CGRectGetMaxY(view.frame);
-      }
+    NSAssert(self.hyb_lastViewInCell != nil
+             || self.hyb_lastViewsInCell.count != 0,
+             @"您未指定cell排列中最后的视图对象，无法计算cell的高度");
+    
+    [self layoutIfNeeded];
+    
+    CGFloat rowHeight = 0.0;
+    
+    if (self.hyb_lastViewInCell) {
+        rowHeight = self.hyb_lastViewInCell.frame.size.height + self.hyb_lastViewInCell.frame.origin.y;
+    } else {
+        for (UIView *view in self.hyb_lastViewsInCell) {
+            if (rowHeight < CGRectGetMaxY(view.frame)) {
+                rowHeight = CGRectGetMaxY(view.frame);
+            }
+        }
     }
-  }
-  
-  rowHeight += self.hyb_bottomOffsetToCell;
-  
-  return rowHeight;
+    
+    rowHeight += self.hyb_bottomOffsetToCell;
+    
+    return rowHeight;
 }
 
 

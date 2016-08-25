@@ -120,7 +120,12 @@ const void *s_hyb_bottomOffsetToCellKey = "hyb_bottomOffsetToCellKey";
 //             || self.hyb_lastViewsInCell.count != 0,
 //             @"您未指定cell排列中最后的视图对象，无法计算cell的高度");
     
+    [self setNeedsUpdateConstraints];
+    [self updateConstraintsIfNeeded];
+    
+    [self setNeedsLayout];
     [self layoutIfNeeded];
+    
     
     CGFloat rowHeight = 0.0;
     

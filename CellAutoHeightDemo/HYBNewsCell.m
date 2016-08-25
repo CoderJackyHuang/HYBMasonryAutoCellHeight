@@ -52,7 +52,11 @@
     }];
     // 应该始终要加上这一句
     // 不然在6/6plus上就不准确了
+    // 原因：cell中的多行UILabel，如果其width不是固定的话（比如屏幕尺寸不同，width不同），要手动设置其preferredMaxLayoutWidth。 因为计算UILabel的intrinsicContentSize需要预先确定其width才行。
+
     self.descLabel.preferredMaxLayoutWidth = w - 30;
+      
+      
     self.descLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
